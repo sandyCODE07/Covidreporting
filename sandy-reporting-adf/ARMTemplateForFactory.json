@@ -445,7 +445,7 @@
 					"columnDelimiter": ",",
 					"rowDelimiter": "\n",
 					"escapeChar": "\\",
-					"firstRowAsHeader": false,
+					"firstRowAsHeader": true,
 					"quoteChar": null
 				},
 				"schema": []
@@ -472,8 +472,9 @@
 					},
 					"columnDelimiter": ",",
 					"rowDelimiter": "\n",
+					"compressionCodec": "bzip2",
 					"escapeChar": "\\",
-					"firstRowAsHeader": false,
+					"firstRowAsHeader": true,
 					"quoteChar": null
 				},
 				"schema": []
