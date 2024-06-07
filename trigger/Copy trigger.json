@@ -1,0 +1,25 @@
+{
+	"name": "Copy trigger",
+	"properties": {
+		"description": "Trigger the copy pipeline, once the file is placed in blob container",
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_ingest_population_data",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "BlobEventsTrigger",
+		"typeProperties": {
+			"blobPathBeginsWith": "/population/blobs/population_by_age.tsv",
+			"ignoreEmptyBlobs": true,
+			"scope": "/subscriptions/e0e68320-6f72-41ce-875e-88226b7390e4/resourceGroups/covid-reporting-rg/providers/Microsoft.Storage/storageAccounts/covidreportingsandy",
+			"events": [
+				"Microsoft.Storage.BlobCreated"
+			]
+		}
+	}
+}

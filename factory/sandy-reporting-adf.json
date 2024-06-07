@@ -1,0 +1,9 @@
+{
+	"name": "sandy-reporting-adf",
+	"location": "southindia",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "76b8fda5-6011-4c5d-94d0-37bb4bf8c158",
+		"tenantId": "cc224256-82ed-4f51-8c54-bbc44beaacf5"
+	}
+}
