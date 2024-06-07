@@ -1,0 +1,30 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "sandy-reporting-adf"
+		},
+		"ls_ablob_covidreportingsa_connectionString": {
+			"value": ""
+		},
+		"ls_adls_covidreportingdl_accountKey": {
+			"value": ""
+		},
+		"ls_github_covidreporting_credential": {
+			"value": ""
+		},
+		"ls_adls_covidreportingdl_properties_typeProperties_url": {
+			"value": "https://sandycovidereportindl.dfs.core.windows.net/"
+		},
+		"ls_github_covidreporting_properties_typeProperties_username": {
+			"value": "sandyCODE07"
+		},
+		"ls_http_opendata_github_europa_properties_typeProperties_url": {
+			"value": "https://github.com"
+		},
+		"Copy trigger_properties_typeProperties_scope": {
+			"value": "/subscriptions/e0e68320-6f72-41ce-875e-88226b7390e4/resourceGroups/covid-reporting-rg/providers/Microsoft.Storage/storageAccounts/covidreportingsandy"
+		}
+	}
+}
