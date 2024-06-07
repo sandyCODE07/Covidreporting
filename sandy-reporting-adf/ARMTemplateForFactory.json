@@ -443,10 +443,9 @@
 						"relativeUrl": "cloudboxacademy/covid19/blob/main/ecdc_data/cases_deaths.csv"
 					},
 					"columnDelimiter": ",",
-					"rowDelimiter": "\n",
 					"escapeChar": "\\",
 					"firstRowAsHeader": true,
-					"quoteChar": null
+					"quoteChar": "\""
 				},
 				"schema": []
 			},
@@ -599,7 +598,7 @@
 				"type": "HttpServer",
 				"typeProperties": {
 					"url": "[parameters('ls_http_opendata_github_europa_properties_typeProperties_url')]",
-					"enableServerCertificateValidation": true,
+					"enableServerCertificateValidation": false,
 					"authenticationType": "Anonymous"
 				}
 			},
