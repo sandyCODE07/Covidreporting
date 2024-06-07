@@ -13,7 +13,6 @@
 				"relativeUrl": "sandyCODE07/Covidreporting/blob/main/cases_deaths.csv"
 			},
 			"columnDelimiter": ",",
-			"compressionCodec": "bzip2",
 			"escapeChar": "\\",
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
