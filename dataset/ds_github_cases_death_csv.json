@@ -1,5 +1,5 @@
 {
-	"name": "ds_cases_deaths_raw_csv_http",
+	"name": "ds_github_cases_death_csv",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_http_opendata_github_europa",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "cloudboxacademy/covid19/blob/main/ecdc_data/cases_deaths.csv"
+				"relativeUrl": "sandyCODE07/Covidreporting/blob/main/cases_deaths.csv"
 			},
 			"columnDelimiter": ",",
 			"rowDelimiter": "\n",
@@ -19,6 +19,5 @@
 			"quoteChar": null
 		},
 		"schema": []
-	},
-	"type": "Microsoft.DataFactory/factories/datasets"
+	}
 }
