@@ -35,6 +35,14 @@
 			"type": "string",
 			"defaultValue": "/subscriptions/e0e68320-6f72-41ce-875e-88226b7390e4/resourceGroups/covid-reporting-rg/providers/Microsoft.Storage/storageAccounts/covidreportingsandy"
 		},
+		"tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sourceRelativeURL": {
+			"type": "string",
+			"defaultValue": "sandyCODE07/Covidreporting/main/hospital_admissions.csv"
+		},
+		"tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sinkFileName": {
+			"type": "string",
+			"defaultValue": "hospital_admissions.csv"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -82,6 +90,12 @@
 					},
 					"Copy trigger_properties_typeProperties_scope": {
 						"value": "[parameters('Copy trigger_properties_typeProperties_scope')]"
+					},
+					"tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sourceRelativeURL": {
+						"value": "[parameters('tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sourceRelativeURL')]"
+					},
+					"tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sinkFileName": {
+						"value": "[parameters('tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sinkFileName')]"
 					}
 				}
 			},

@@ -25,6 +25,12 @@
 		},
 		"Copy trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/e0e68320-6f72-41ce-875e-88226b7390e4/resourceGroups/covid-reporting-rg/providers/Microsoft.Storage/storageAccounts/covidreportingsandy"
+		},
+		"tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sourceRelativeURL": {
+			"value": "sandyCODE07/Covidreporting/main/hospital_admissions.csv"
+		},
+		"tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sinkFileName": {
+			"value": "hospital_admissions.csv"
 		}
 	}
 }

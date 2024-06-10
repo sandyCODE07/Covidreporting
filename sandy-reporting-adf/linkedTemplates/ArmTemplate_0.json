@@ -34,6 +34,14 @@
 		"Copy trigger_properties_typeProperties_scope": {
 			"type": "string",
 			"defaultValue": "/subscriptions/e0e68320-6f72-41ce-875e-88226b7390e4/resourceGroups/covid-reporting-rg/providers/Microsoft.Storage/storageAccounts/covidreportingsandy"
+		},
+		"tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sourceRelativeURL": {
+			"type": "string",
+			"defaultValue": "sandyCODE07/Covidreporting/main/hospital_admissions.csv"
+		},
+		"tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sinkFileName": {
+			"type": "string",
+			"defaultValue": "hospital_admissions.csv"
 		}
 	},
 	"variables": {
@@ -104,7 +112,7 @@
 			"dependsOn": []
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_cases_death_raw_csv_dl')]",
+			"name": "[concat(parameters('factoryName'), '/ds_github_raw_csv_dl')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -112,12 +120,20 @@
 					"referenceName": "ls_adls_covidreportingdl",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "cases_death.csv",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
 						"folderPath": "ecdc",
 						"fileSystem": "raw"
 					},
@@ -133,7 +149,7 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/ds_cases_deaths_raw_csv_http')]",
+			"name": "[concat(parameters('factoryName'), '/ds_github_raw_csv_http')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
 			"properties": {
@@ -141,39 +157,20 @@
 					"referenceName": "ls_http_opendata_github_europa",
 					"type": "LinkedServiceReference"
 				},
-				"annotations": [],
-				"type": "DelimitedText",
-				"typeProperties": {
-					"location": {
-						"type": "HttpServerLocation",
-						"relativeUrl": "sandyCODE07/Covidreporting/main/cases_deaths.csv"
-					},
-					"columnDelimiter": ",",
-					"escapeChar": "\\",
-					"firstRowAsHeader": true,
-					"quoteChar": "\""
-				},
-				"schema": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/linkedServices/ls_http_opendata_github_europa')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/ds_github_cases_death_csv')]",
-			"type": "Microsoft.DataFactory/factories/datasets",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"linkedServiceName": {
-					"referenceName": "ls_http_opendata_github_europa",
-					"type": "LinkedServiceReference"
+				"parameters": {
+					"relativeURL": {
+						"type": "string"
+					}
 				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "sandyCODE07/Covidreporting/blob/main/cases_deaths.csv"
+						"relativeUrl": {
+							"value": "@dataset().relativeURL",
+							"type": "Expression"
+						}
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -246,13 +243,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pl_ingest_cases_death_data')]",
+			"name": "[concat(parameters('factoryName'), '/pl_ingest_github_data')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "copy cases and deaths data",
+						"name": "copy github data",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -297,105 +294,47 @@
 						},
 						"inputs": [
 							{
-								"referenceName": "ds_cases_deaths_raw_csv_http",
+								"referenceName": "ds_github_raw_csv_http",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"relativeURL": {
+										"value": "@pipeline().parameters.sourceRelativeURL",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
 							{
-								"referenceName": "ds_cases_death_raw_csv_dl",
+								"referenceName": "ds_github_raw_csv_dl",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"filename": {
+										"value": "@pipeline().parameters.sinkFileName",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {
+					"sourceRelativeURL": {
+						"type": "string"
+					},
+					"sinkFileName": {
+						"type": "string"
+					}
 				},
 				"annotations": [],
 				"lastPublishTime": "2024-06-07T12:55:41Z"
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_cases_deaths_raw_csv_http')]",
-				"[concat(variables('factoryId'), '/datasets/ds_cases_death_raw_csv_dl')]"
-			]
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/pl_ingest_github_cases_death_data')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy github cases death data",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "DelimitedTextSource",
-								"storeSettings": {
-									"type": "HttpReadSettings",
-									"requestMethod": "GET"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextReadSettings"
-								}
-							},
-							"sink": {
-								"type": "DelimitedTextSink",
-								"storeSettings": {
-									"type": "AzureBlobFSWriteSettings"
-								},
-								"formatSettings": {
-									"type": "DelimitedTextWriteSettings",
-									"quoteAllText": true,
-									"fileExtension": ".txt"
-								}
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"typeConversion": true,
-								"typeConversionSettings": {
-									"allowDataTruncation": true,
-									"treatBooleanAsNumber": false
-								}
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "ds_github_cases_death_csv",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "ds_cases_death_raw_csv_dl",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/ds_github_cases_death_csv')]",
-				"[concat(variables('factoryId'), '/datasets/ds_cases_death_raw_csv_dl')]"
+				"[concat(variables('factoryId'), '/datasets/ds_github_raw_csv_http')]",
+				"[concat(variables('factoryId'), '/datasets/ds_github_raw_csv_dl')]"
 			]
 		},
 		{
@@ -631,6 +570,39 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/pipelines/pl_ingest_population_data')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/tr_ingest_github_copy')]",
+			"type": "Microsoft.DataFactory/factories/triggers",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"runtimeState": "Stopped",
+				"pipelines": [
+					{
+						"pipelineReference": {
+							"referenceName": "pl_ingest_github_data",
+							"type": "PipelineReference"
+						},
+						"parameters": {
+							"sourceRelativeURL": "[parameters('tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sourceRelativeURL')]",
+							"sinkFileName": "[parameters('tr_ingest_github_copy_properties_pl_ingest_github_data_parameters_sinkFileName')]"
+						}
+					}
+				],
+				"type": "ScheduleTrigger",
+				"typeProperties": {
+					"recurrence": {
+						"frequency": "Day",
+						"interval": 1,
+						"startTime": "2024-06-11T19:37:00",
+						"timeZone": "India Standard Time"
+					}
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/pipelines/pl_ingest_github_data')]"
 			]
 		}
 	]
