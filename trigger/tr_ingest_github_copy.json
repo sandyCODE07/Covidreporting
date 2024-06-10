@@ -3,13 +3,24 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Stopped",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "pl_ingest_github_data",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"sourceRelativeURL": "sandyCODE07/Covidreporting/main/hospital_admissions.csv",
+					"sinkFileName": "hospital_admissions.csv"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {
 				"frequency": "Day",
 				"interval": 1,
-				"startTime": "2024-06-10T18:01:00",
+				"startTime": "2024-06-11T19:37:00",
 				"timeZone": "India Standard Time"
 			}
 		}

@@ -1,9 +1,9 @@
 {
-	"name": "pl_ingest_cases_death_data",
+	"name": "pl_ingest_github_data",
 	"properties": {
 		"activities": [
 			{
-				"name": "copy cases and deaths data",
+				"name": "copy github data",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -48,11 +48,11 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_cases_deaths_raw_csv_http",
+						"referenceName": "ds_github_raw_csv_http",
 						"type": "DatasetReference",
 						"parameters": {
 							"relativeURL": {
-								"value": "@variables('sourceRelativeURL')",
+								"value": "@pipeline().parameters.sourceRelativeURL",
 								"type": "Expression"
 							}
 						}
@@ -60,11 +60,11 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_cases_death_raw_csv_dl",
+						"referenceName": "ds_github_raw_csv_dl",
 						"type": "DatasetReference",
 						"parameters": {
 							"filename": {
-								"value": "@variables('sinkFileName')",
+								"value": "@pipeline().parameters.sinkFileName",
 								"type": "Expression"
 							}
 						}
@@ -72,14 +72,12 @@
 				]
 			}
 		],
-		"variables": {
+		"parameters": {
 			"sourceRelativeURL": {
-				"type": "String",
-				"defaultValue": "sandyCODE07/Covidreporting/main/hospital_admissions.csv"
+				"type": "string"
 			},
 			"sinkFileName": {
-				"type": "String",
-				"defaultValue": "hospital_admissions.csv"
+				"type": "string"
 			}
 		},
 		"annotations": [],
