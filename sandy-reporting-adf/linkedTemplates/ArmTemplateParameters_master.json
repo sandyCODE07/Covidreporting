@@ -21,7 +21,7 @@
 			"value": "sandyCODE07"
 		},
 		"ls_http_opendata_github_europa_properties_typeProperties_url": {
-			"value": "https://raw.githubusercontent.com"
+			"value": "https://raw.githubusercontent.com/"
 		},
 		"Copy trigger_properties_typeProperties_scope": {
 			"value": "/subscriptions/e0e68320-6f72-41ce-875e-88226b7390e4/resourceGroups/covid-reporting-rg/providers/Microsoft.Storage/storageAccounts/covidreportingsandy"
