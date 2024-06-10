@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "HttpServerLocation",
-				"relativeUrl": "sandyCODE07/Covidreporting/blob/main/cases_deaths.csv"
+				"relativeUrl": "sandyCODE07/Covidreporting/main/cases_deaths.csv"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",
