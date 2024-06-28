@@ -3,10 +3,19 @@
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_http_opendata_github_europa",
-			"type": "LinkedServiceReference"
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"SourceBaseURL": {
+					"value": "@dataset().SourceBaseURL",
+					"type": "Expression"
+				}
+			}
 		},
 		"parameters": {
 			"relativeURL": {
+				"type": "string"
+			},
+			"SourceBaseURL": {
 				"type": "string"
 			}
 		},
