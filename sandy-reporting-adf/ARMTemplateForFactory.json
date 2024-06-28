@@ -29,7 +29,7 @@
 		},
 		"ls_http_opendata_github_europa_properties_typeProperties_url": {
 			"type": "string",
-			"defaultValue": "https://raw.githubusercontent.com/"
+			"defaultValue": "@{linkedService().SourceBaseURL}"
 		},
 		"Copy trigger_properties_typeProperties_scope": {
 			"type": "string",
@@ -106,6 +106,10 @@
 									"relativeURL": {
 										"value": "@pipeline().parameters.sourceRelativeURL",
 										"type": "Expression"
+									},
+									"SourceBaseURL": {
+										"value": "@pipeline().parameters.SourceBaseURL",
+										"type": "Expression"
 									}
 								}
 							}
@@ -133,10 +137,13 @@
 					},
 					"sinkFileName": {
 						"type": "string"
+					},
+					"SourceBaseURL": {
+						"type": "string"
 					}
 				},
 				"annotations": [],
-				"lastPublishTime": "2024-06-07T12:55:41Z"
+				"lastPublishTime": "2024-06-10T14:02:09Z"
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/datasets/ds_github_raw_csv_http')]",
@@ -391,10 +398,19 @@
 			"properties": {
 				"linkedServiceName": {
 					"referenceName": "ls_http_opendata_github_europa",
-					"type": "LinkedServiceReference"
+					"type": "LinkedServiceReference",
+					"parameters": {
+						"SourceBaseURL": {
+							"value": "@dataset().SourceBaseURL",
+							"type": "Expression"
+						}
+					}
 				},
 				"parameters": {
 					"relativeURL": {
+						"type": "string"
+					},
+					"SourceBaseURL": {
 						"type": "string"
 					}
 				},
@@ -531,6 +547,11 @@
 			"type": "Microsoft.DataFactory/factories/linkedServices",
 			"apiVersion": "2018-06-01",
 			"properties": {
+				"parameters": {
+					"SourceBaseURL": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "HttpServer",
 				"typeProperties": {
