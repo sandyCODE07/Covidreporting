@@ -1,0 +1,17 @@
+{
+	"name": "tr_ingest_github_all_data",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Day",
+				"interval": 1,
+				"startTime": "2024-06-28T16:52:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}
